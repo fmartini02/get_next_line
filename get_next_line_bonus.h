@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fmartini <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: francema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 17:50:24 by fmartini          #+#    #+#             */
-/*   Updated: 2022/11/25 17:50:32 by fmartini         ###   ########.fr       */
+/*   Updated: 2024/11/22 17:57:30 by francema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,23 +15,28 @@
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 666
 # endif
+# ifndef MAX_FD
+#  define MAX_FD 4096
+# endif
+# include <unistd.h>
+# include <stdlib.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+# include <stdio.h>
+# include <stddef.h>
 
-# include<unistd.h>
-# include<stdlib.h>
-# include<sys/types.h>
-# include<sys/stat.h>
-# include<fcntl.h>
-# include<stdio.h>
-# include<stddef.h>
+typedef struct s_last_line
+{
+	char	*last_line;
+	int		size;
+}	t_last_line;
 
 char	*get_next_line(int fd);
 char	*ft_strchr(const char *s, int c);
-char	*ft_strjoin(char *s1, char *s2);
-char	*ft_read_buf(int fd, char *mem);
-int		ft_strlen(const char *s);
-char	*ft_set_mem(char *mem);
-char	*ft_line_builder(char *buf);
+char	*ft_strjoin_free(char *s1, char *s2);
+int		ft_strlen_char(const char *s, char c);
+char	*ft_strdup(char *s);
 void	*ft_calloc(unsigned int nmemb, unsigned int size);
-char	*ft_set_new_mem(char *mem, int i);
 
 #endif
