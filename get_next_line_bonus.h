@@ -6,7 +6,7 @@
 /*   By: francema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 17:50:24 by fmartini          #+#    #+#             */
-/*   Updated: 2024/11/22 17:57:30 by francema         ###   ########.fr       */
+/*   Updated: 2025/03/10 19:03:30 by francema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,10 @@ char	*ft_strchr(const char *s, int c);
 char	*ft_strjoin_free(char *s1, char *s2);
 int		ft_strlen_char(const char *s, char c);
 char	*ft_strdup(char *s);
-void	*ft_calloc(unsigned int nmemb, unsigned int size);
+char	*get_next_line_utils(char *line[4096], char *ret, char *tmp, int fd);
+char	*ft_get_surplus(char *line);
+char	*ft_update_line(char *line);
+char	*ft_fill_line(int fd, char *ret);
+char	*extract_line(char *line);
 
 #endif

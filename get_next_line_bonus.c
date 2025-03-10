@@ -6,7 +6,7 @@
 /*   By: francema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/20 16:06:03 by francema          #+#    #+#             */
-/*   Updated: 2025/02/24 20:07:49 by francema         ###   ########.fr       */
+/*   Updated: 2025/03/10 19:23:08 by francema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*extract_line(char *line)
 	char	*ret;
 
 	i = ft_strlen_char(line, '\n');
-	ret = ft_calloc(i + 2, sizeof(char));
+	ret = malloc(sizeof(char) * (i + 2));
 	if (!ret)
 		return (NULL);
 	i = 0;
@@ -63,11 +63,12 @@ char	*ft_fill_line(int fd, char *ret)
 	int		r_bytes;
 	char	*buf;
 
-	buf = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buf)
 		return (NULL);
 	r_bytes = 1;
-	while (!ft_strchr(buf, '\n') && r_bytes > 0)
+	buf[0] = '\0';
+	while ((!ft_strchr(buf, '\n') && r_bytes > 0))
 	{
 		r_bytes = read(fd, buf, BUFFER_SIZE);
 		if (r_bytes <= 0)
@@ -120,22 +121,9 @@ char	*get_next_line(int fd)
 		return (NULL);
 	if (line[fd])
 	{
-		tmp = ft_get_surplus(line[fd]);
-		i = ft_strlen_char(line[fd], '\n');
-		if (tmp[i] == '\n')
-		{
-			line[fd] = ft_update_line(line[fd]);
-			return (tmp);
-		}
-		else if (tmp[i] == '\0')
-		{
-			free(line[fd]);
-			line[fd] = ft_fill_line(fd, ret);
-			ret = extract_line(line[fd]);
-			tmp = ft_strjoin_free(tmp, ret);
-			free(ret);
-			return (tmp);
-		}
+		ret = get_next_line_utils(line, ret, tmp, fd);
+		if (ret)
+			return (ret);
 	}
 	if (!ret && !line[fd])
 	{
@@ -147,4 +135,3 @@ char	*get_next_line(int fd)
 	}
 	return (ret);
 }
-

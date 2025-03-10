@@ -6,25 +6,33 @@
 /*   By: francema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/25 17:51:05 by fmartini          #+#    #+#             */
-/*   Updated: 2025/02/24 20:00:51 by francema         ###   ########.fr       */
+/*   Updated: 2025/03/10 19:04:42 by francema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
-void	*ft_calloc(unsigned int nmemb, unsigned int size)
+char	*get_next_line_utils(char *line[4096], char *ret, char *tmp, int fd)
 {
-	int		i;
-	char	*c;
+	int	i;
 
-	i = 0;
-	c = malloc(nmemb * size);
-	while ((unsigned int)i < nmemb)
+	tmp = ft_get_surplus(line[fd]);
+	i = ft_strlen_char(line[fd], '\n');
+	if (tmp[i] == '\n')
 	{
-		c[i] = 0;
-		i++;
+		line[fd] = ft_update_line(line[fd]);
+		return (tmp);
 	}
-	return (c);
+	else if (tmp[i] == '\0')
+	{
+		free(line[fd]);
+		line[fd] = ft_fill_line(fd, ret);
+		ret = extract_line(line[fd]);
+		tmp = ft_strjoin_free(tmp, ret);
+		free(ret);
+		return (tmp);
+	}
+	return (NULL);
 }
 
 int	ft_strlen_char(const char *s, char c)
@@ -100,6 +108,5 @@ char	*ft_strjoin_free(char *s1, char *s2)
 		str[i++] = s2[j++];
 	str[i] = '\0';
 	free(s1);
-	//free(s2);
 	return (str);
 }
