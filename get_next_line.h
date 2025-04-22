@@ -5,15 +5,15 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: francema <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/11/25 17:51:50 by fmartini          #+#    #+#             */
-/*   Updated: 2024/11/22 16:41:01 by francema         ###   ########.fr       */
+/*   Created: 2025/04/17 18:20:33 by francema          #+#    #+#             */
+/*   Updated: 2025/04/18 15:15:19 by francema         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
+#  define BUFFER_SIZE 10
 # endif
 
 # include <unistd.h>
@@ -22,11 +22,11 @@
 # include <stdio.h>
 # include <fcntl.h>
 
-char	*get_next_line(int fd);
+size_t	ft_strlen(const char *s);
+char	*ft_strdup(const char *s);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strchr(const char *s, int c);
-char	*ft_strjoin_free(char *s1, char *s2);
-int		ft_strlen_char(const char *s, char c);
-char	*ft_strdup(char *s);
-void	*ft_calloc(unsigned int nmemb, unsigned int size);
+char	*ft_strjoin(char *s1, char *s2);
+char	*get_next_line(int fd);
 
 #endif
